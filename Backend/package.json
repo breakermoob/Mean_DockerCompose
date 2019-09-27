@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js --host=0.0.0.0 --disable-host-check"
   },
   "dependencies": {
     "body-parser": "~1.18.3",

@@ -1,7 +1,8 @@
 
-FROM nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+FROM nginx:1.17.4-alpine
 
-EXPOSE 5000
+COPY nginx.conf /etc/nginx/nginx.conf
+
+WORKDIR /etc/nginx/
 
 CMD ["nginx", "-g", "daemon off;"]

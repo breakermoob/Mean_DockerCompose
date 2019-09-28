@@ -4,7 +4,7 @@ const router = express.Router();
 const mysql = require('mysql');
 const cors = require('cors');
 var con = mysql.createConnection({
-    host: "172.17.0.2",
+    host: "database",
     user: "root",
     port: '3306',
     password: "root",

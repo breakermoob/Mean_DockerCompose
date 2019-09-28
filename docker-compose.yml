@@ -5,17 +5,51 @@ services:
     build: Frontend # Dockerfile
     ports:
       - "4200:4200" # port 
-    container_name: frontend
     restart: always
+    networks:
+      - front_net
+
   backend: #Backend Node
     build: Backend # Dockerfile
     ports:
       - "3000:3000" # ports 
-    container_name: backend
     restart: always
-    links:
-      - database # link this service to the database service
+    depends_on:
+      - database
+    networks:
+      - back_net
+      - front_net
+
   database: # DB mysql
     build: Database # Dockerfile
-    container_name: database
     restart: always
+    volumes:
+      - my-db-test:/var/lib/mysql
+    networks:
+      - back_net
+    
+  loadbalancer:
+    build: Balancer
+    restart: always
+    depends_on: 
+      - backend
+      - frontend
+    volumes:
+      - load-balancer:/etc/nginx
+    tty: true
+    expose:
+      - "5000"
+    ports:
+      - '5001:5001'
+      - '5000:5000'
+    networks:
+      - front_net
+ 
+volumes:
+  my-db-test:
+  load-balancer:
+    
+networks:
+  back_net:
+  front_net:
+    

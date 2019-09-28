@@ -1,7 +1,7 @@
-# Create mysql server based on the official image from the dockerhub
 FROM mysql:5
-# Add a database & root password
+# nombre de la DB y pass para root
 ENV MYSQL_DATABASE microservices
 ENV MYSQL_ROOT_PASSWORD=root
-# optionnaly, run initial scripts for creating tables 
+
+# Correr Scripts
 COPY ./sql-scripts/ /docker-entrypoint-initdb.d/
